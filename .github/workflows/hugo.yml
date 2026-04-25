@@ -23,8 +23,10 @@ jobs:
           extended: true
 
       - name: Build
-        # This keeps your subfolder structure intact
-        run: hugo --minify --source advancedentalsolution
+        run: |
+          hugo --minify --source advancedentalsolution
+          echo "Checking generated files..."
+          ls -R advancedentalsolution/public
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
