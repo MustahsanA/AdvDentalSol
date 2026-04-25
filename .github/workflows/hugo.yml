@@ -16,7 +16,14 @@ jobs:
           hugo-version: 'latest'
           extended: true
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --source advancedentalsolution
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # This tells the uploader where the generated HTML is
+          path: ./advancedentalsolution/public
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
