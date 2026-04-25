@@ -23,27 +23,22 @@ jobs:
           extended: true
 
       - name: Build
+        # This keeps your subfolder structure intact
         run: hugo --minify --source advancedentalsolution
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # This tells the uploader where the generated HTML is
+          # Pointing exactly where Hugo generated the files
           path: ./advancedentalsolution/public
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-
-#   deploy:
-#     needs: build
-#     runs-on: ubuntu-latest
-#     environment:
-#       name: github-pages
-#       url: ${{ steps.deployment.outputs.page_url }}
-#     steps:
-#       - name: Deploy to GitHub Pages
-#         id: deployment
-#         uses: actions/deploy-pages@v4
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
